@@ -1,0 +1,95 @@
+.carte-et-fiche {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    grid-template-areas: "fiche carte";
+    gap: 16px;
+    align-items: start;
+}
+
+
+
+.carte-et-fiche > #map {
+   /* top:50px ; 	*/
+    position: relative;
+    width: 70%;
+    min-width: 0;
+    height: 500px;
+    left:150px; 
+}
+
+.carte-et-fiche > .fiche-wilaya {
+    top:50px ;
+    position: static;
+    min-width: 0;
+    width:420px; 
+}
+
+
+.carte-et-fiche > .fiche-wilaya { grid-area: fiche; }
+.carte-et-fiche > #map          { grid-area: carte; }
+
+
+@media (max-width: 700px) {
+    .carte-et-fiche {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "carte"
+            "fiche";
+    }
+}
+
+.fiche-wilaya {
+    top:50px ;
+    box-sizing: border-box;
+    overflow: hidden;
+    background: #fff;
+    /*color: #24334a;*/
+    color:#fcbe51,
+    border: 1px solid #dce3ef;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgb(30 50 90 / 8%);
+    font: 14px/1.4 system-ui, sans-serif;
+}
+
+#titre-wilaya {
+    margin: 0;
+    padding: 13px 16px;
+    background: #24365b;
+    color: #fff;
+    border-left: 5px solid #607ceb;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#table-wilaya {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#table-wilaya th,
+#table-wilaya td {
+    padding: 9px 14px;
+    border: 0;
+    border-bottom: 1px solid #e3e8f0;
+    background: transparent;
+}
+
+#table-wilaya th {
+    text-align: left;
+    color: #475569;
+    font-weight: 500;
+}
+
+#table-wilaya td {
+    text-align: right;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+#table-wilaya tr:nth-child(even) {
+    background: #f5f7fc;
+}
+
+#table-wilaya tr:last-child > * {
+    border-bottom: 0;
+}

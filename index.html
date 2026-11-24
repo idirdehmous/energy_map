@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Energy interactive map</title>
+
+  <link rel="stylesheet"  href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet"  href="css/style_01.css" > 
+
+
+
+</head>
+<body>
+
+<header class="topbar">
+    <!-- Logo --> 
+   <div class="topbar-left">
+        <img src="./img/logo.png" alt="title" class="topbar-logo">
+    </div>
+
+
+    <!-- Application -->
+    <div class="topbar-center">   
+    <div class="app-subtitle"> People's Democratic Republic Of Algeria </div> 
+    <div class="minister"  >   Ministry Of Energy And Renewable Energies  </div>   
+    <div class="app-name"  >   Carte interactive </div > 
+</header>
+
+<div class="carte-et-fiche">
+  <div id="map"></div>
+
+  <aside class="panneau-fiches">
+    <!-- Premier tableau -->
+    <section class="fiche-wilaya">
+      <h2 id="titre-wilaya">Clique sur une wilaya</h2>
+      <table id="table-wilaya" hidden>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <!-- Deuxième tableau -->
+    <section class="fiche-wilaya-pec" id="section-pec" hidden>
+      <h3 id="titre-pec">Situation PEC</h3>
+      <table id="table-wilaya-pec">
+        <tbody></tbody>
+      </table>
+    </section>
+  </aside>
+</div>
+
+  <!--<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>-->
+  <script src="./plugins/leaflet.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>

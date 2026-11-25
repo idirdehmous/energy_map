@@ -98,12 +98,12 @@ const COUNT_PALETTE = [
 
 
 // baseMap Leaflet
-const southWest_corner  = L.latLng([38.5, 2.5]);
-const northEast_corner  = L.latLng([55.5,  8.5]);
+const southWest_corner  = L.latLng([17.0 , -3.0]);
+const northEast_corner  = L.latLng([42.0,  13.0]);
 const map_extent        = L.latLngBounds(southWest_corner, northEast_corner);
 
 // init the map object  
-const map = L.map('map', { crs: L.CRS.EPSG3857 }).setView([50.5, 5.75], 6);
+const map = L.map('map', { crs: L.CRS.EPSG3857  }).setView([29.5, 1.75], 5);
 
 /*var  osm1 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	maxZoom: 19,
@@ -117,6 +117,9 @@ var osm1 = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x
 	ext: 'png'
 });
 
+
+
+map.setMaxBounds(map_extent);
 
 let activeBasemap = osm1;
 activeBasemap.addTo(map);
@@ -195,10 +198,21 @@ renderChart() ;
     }
   }
 }).addTo(map);
-const bounds = geo_layer.getBounds();
-  if (bounds.isValid()) {
-    map.fitBounds(bounds, { padding: [15, 15] });
+//const bounds = geo_layer.getBounds();
+
+// Automatically select the first wilaya (e.g., "01" - Adrar) on startup
+if (allFeatures.length > 0) {
+  const firstProps = allFeatures[0].properties;
+  const firstCode = String(firstProps.code ?? firstProps.id).padStart(2, "0");
+  selectWilaya(firstCode);
+}
+
+map.fitBounds( map_extent, { padding: [1, 1] });
+/*if (bounds.isValid()) {
+	console.log ("Fit bounds") ; 
+    map.fitBounds(bounds, { padding: [1, 1] });
   }
+  */
 }
 
 // Add a legend   inside the map for the region colors 
@@ -464,7 +478,8 @@ function updateChartLegend(isPercent, maxVal) {
       <span><i style="background:${PERCENT_PALETTE[4]}"></i> 80 – 100%</span>
       <span><i style="background:#4f46e5; border: 1.5px solid #000;"></i> Sélectionnée</span>
     `;
-  } else {
+  } 
+   else {
     const step = maxVal / 5;
     const fmt = (n) => formatNombre.format(Math.round(n));
     legendEl.innerHTML = `
@@ -477,6 +492,8 @@ function updateChartLegend(isPercent, maxVal) {
     `;
   }
 }
+
+
 
 
 
@@ -595,7 +612,7 @@ const borderColors = displayedFeatures.map((f, idx) => {
 });
 
 
-  if (wilayaChart) {
+ /* if (wilayaChart) {
     wilayaChart.data.labels = labels; // Important: update labels when sort order changes
     wilayaChart.data.datasets[0].label = config.label;
     wilayaChart.data.datasets[0].data = values;
@@ -603,9 +620,31 @@ const borderColors = displayedFeatures.map((f, idx) => {
     wilayaChart.data.datasets[0].borderWidth = borderWidths;
     wilayaChart.options.scales.x.max = config.isPercent ? 100 : undefined;
     wilayaChart.options.scales.x.title.text = config.label;
+      // Update mirrored top axis
+  wilayaChart.options.scales.xTop.max = config.isPercent ? 100 : undefined;
+  wilayaChart.options.scales.xTop.title.text = config.label;
     wilayaChart.update("none");
     return;
-  }
+  }*/
+  
+  
+if (wilayaChart) {
+  wilayaChart.data.labels = labels;
+  wilayaChart.data.datasets[0].label = config.label;
+  wilayaChart.data.datasets[0].data = values;
+  wilayaChart.data.datasets[0].backgroundColor = backgroundColors;
+  wilayaChart.data.datasets[0].borderWidth = borderWidths;
+
+  wilayaChart.options.scales.x.max = config.isPercent ? 100 : undefined;
+  wilayaChart.options.scales.x.title.text = config.label;
+  wilayaChart.options.scales.xTop.title.text = config.label;
+
+  wilayaChart.update("none");
+  return;
+}
+
+  
+  
 
   wilayaChart = new Chart(canvas.getContext("2d"), {
     type: "bar",
@@ -644,8 +683,44 @@ const borderColors = displayedFeatures.map((f, idx) => {
         legend: { display: false },
         title: { display: false }
       },
-      scales: {
+scales: {
+  x: {
+    position: "bottom",
+    beginAtZero: true,
+    max: config.isPercent ? 100 : undefined,
+    title: { display: true, text: config.label },
+    ticks: {
+      maxTicksLimit: 6, // Keeps labels from crowding when numbers reach 500,000+
+      callback: (value) => formatNombre.format(value)
+    }
+  },
+  xTop: {
+    position: "top",
+    beginAtZero: true,
+    title: { display: true, text: config.label },
+    grid: {
+      drawOnChartArea: false
+    },
+    ticks: {
+      callback: (value) => formatNombre.format(value)
+    },
+    afterBuildTicks: (axis) => {
+      const bottomScale = axis.chart.scales.x;
+      axis.min = bottomScale.min;
+      axis.max = bottomScale.max;
+      axis.ticks = [...bottomScale.ticks];
+    }
+  },
+  y: {
+    ticks: {
+      autoSkip: false,
+      font: { size: 11 }
+    }
+  }
+}
+     /* scales: {
         x: {
+		  position: "top",
           beginAtZero: true,
           max: config.isPercent ? 100 : undefined,
           title: { display: true, text: config.label }
@@ -656,7 +731,7 @@ const borderColors = displayedFeatures.map((f, idx) => {
             font: { size: 11 }
           }
         }
-      }
+      } */
     }
   });
 }

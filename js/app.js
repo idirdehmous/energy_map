@@ -236,11 +236,11 @@ function getRegionColor(region) {
 	console.log(region) ; 	
   switch (region) {
     case 'Nord':
-      return '#6d71ed';    // Blue   
+      return '#B3EBF2';    // Blue   
     case 'Hauts-Plateaux':
-      return '#37e6ae';    // 
+      return '#C4D8E2';    // 
     case 'Sud':
-      return '#cde85f';  
+      return '#FFED29';  
     default:
       return '#95a5a6'; 
   }

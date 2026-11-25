@@ -4,5 +4,13 @@ First version  :
 Features : 
 -Display the geojson polygones
 -Color according to regions 
--Display tables containing the data by clicking on a given region 
-  
+-Display tables containing the data by clicking on a given region
+
+
+2026/11/25
+
+-Refine the CSS style to be more moderne 
+-Add the Chart.js for histogramme plots 
+-Add features such , sort the values by code or  by values 
+-Click tracking on the map to the bar plot evice versa 
+

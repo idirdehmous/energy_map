@@ -11,7 +11,7 @@
 
 
 </head>
-<body>
+
 
 <header class="topbar">
     <!-- Logo --> 
@@ -27,30 +27,83 @@
     <div class="app-name"  >   Carte interactive </div > 
 </header>
 
+
+
+
+
 <div class="carte-et-fiche">
+
   <div id="map"></div>
 
+
   <aside class="panneau-fiches">
-    <!-- Premier tableau -->
-    <section class="fiche-wilaya">
-      <h2 id="titre-wilaya">Clique sur une wilaya</h2>
+    <h2 id="titre-wilaya">Clique sur une wilaya</h2>
+    
+    
+    
+	   <!-- Tab links -->
+    <div class="tab">
+      <button class="tablinks active" onclick="openTab(event, 'tab-tableau')">Tableau</button>   
+      <button class="tablinks"        onclick="openTab(event, 'tab-pec')">Programmes (PEC)</button>
+      <button class="tablinks"        onclick="openTab(event, 'tab-histograms')">Histogrammes</button>
+    </div>
+ 
+    <!-- Tab 1: Properties -->
+    <section id="tab-tableau" class="tabcontent">
+     <h3 id="titre-pec">Tableau pour la wilaya selectionée </h3>
       <table id="table-wilaya" hidden>
         <tbody></tbody>
       </table>
     </section>
 
-    <!-- Deuxième tableau -->
-    <section class="fiche-wilaya-pec" id="section-pec" hidden>
+
+
+    <!-- Tab 3: PEC Table -->
+    <section id="tab-pec" class="tabcontent" style="display: none;">
       <h3 id="titre-pec">Situation PEC</h3>
-      <table id="table-wilaya-pec">
+      <table id="table-wilaya-pec" hidden>
         <tbody></tbody>
       </table>
     </section>
+  
+<section id="tab-histograms" class="tabcontent" style="display: none;">
+  <h4 style="margin: 0 0 8px 0;">Taux d'Accès au Gaz (TAG %) par Wilaya</h4>
+
+  <!-- Fixed Legend -->
+ <div class="chart-legend">
+  <span><i style="background:#f43f5e"></i> 0 – 20%</span>
+  <span><i style="background:#fb923c"></i> 20 – 40%</span>
+  <span><i style="background:#facc15"></i> 40 – 60%</span>
+  <span><i style="background:#34d399"></i> 60 – 80%</span>
+  <span><i style="background:#059669"></i> 80 – 100%</span>
+  <span><i style="background:#616fed; border: 1.px solid #1e1b4b;"></i> Sélectionnée</span>
+</div>
+
+  <!-- Scrollable Chart -->
+  <div style="height: 450px; overflow-y: auto; border: 1px solid #eee; padding: 8px;">
+    <div style="position: relative; height: 1500px; width: 100%;">
+      <canvas id="chart-wilaya"></canvas>
+    </div>
+  </div>
+</section>
+    
+
+    
+    
+    
   </aside>
 </div>
 
+
+
+
+
   <!--<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>-->
   <script src="./plugins/leaflet.js"></script>
+  
+  
+ <!-- <script src="https://jsdelivr.net"></script>-->
+ <script src="./plugins/chart.umd.min.js" defer></script>
   <script src="./js/app.js"></script>
 </body>
 </html>

@@ -13,4 +13,5 @@ Features :
 -Add the Chart.js for histogramme plots 
 -Add features such , sort the values by code or  by values 
 -Click tracking on the map to the bar plot evice versa 
-
+-Test the app on the windows system   with firefox , chrome and Ms Edge  
+-Test the pre processing python script on windows with python3.15 . With success 

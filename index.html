@@ -67,24 +67,35 @@
     </section>
   
 <section id="tab-histograms" class="tabcontent" style="display: none;">
-  <h4 style="margin: 0 0 8px 0;">Taux d'Accès au Gaz (TAG %) par Wilaya</h4>
+  <!-- 1. Toolbar (closes right after button) -->
+  <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
+    <label for="metric-select" style="font-weight: 600; font-size: 13px;">Indicateur :</label>
+    <select id="metric-select" onchange="changeMetric(this.value)" style="padding: 4px 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 13px; flex: 1;">
+      <option value="TAG" selected>TAG (%) — Taux d'Accès au Gaz</option>
+      <option value="TAE">TAE (%) — Taux d'Accès à l'Électricité</option>
+      <option value="TPG">TPG (%) — Taux de Pénétration Gaz</option>
+      <option value="NAE">NAE — Nombre d'Abonnés Électricité</option>
+      <option value="NAG">NAG — Nombre d'Abonnés Gaz</option>
+    </select>
+    <button id="sort-btn" onclick="toggleSort()" title="Changer l'ordre de tri" style="padding: 4px 8px; border-radius: 4px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-size: 12px; white-space: nowrap;">
+      Trier valeurs décroissante
+    </button>
+  </div>
 
-  <!-- Fixed Legend -->
- <div class="chart-legend">
-  <span><i style="background:#f43f5e"></i> 0 – 20%</span>
-  <span><i style="background:#fb923c"></i> 20 – 40%</span>
-  <span><i style="background:#facc15"></i> 40 – 60%</span>
-  <span><i style="background:#34d399"></i> 60 – 80%</span>
-  <span><i style="background:#059669"></i> 80 – 100%</span>
-  <span><i style="background:#616fed; border: 1.px solid #1e1b4b;"></i> Sélectionnée</span>
-</div>
+  <!-- 2. Dynamic Legend -->
+  <div id="chart-legend" class="chart-legend"></div>
 
-  <!-- Scrollable Chart -->
-  <div style="height: 450px; overflow-y: auto; border: 1px solid #eee; padding: 8px;">
+  <!-- 3. Scrollable Chart Container -->
+  <div id="chart-scroll-box" style="height: 450px; overflow-y: auto; border: 1px solid #eee; padding: 8px;">
     <div style="position: relative; height: 1500px; width: 100%;">
       <canvas id="chart-wilaya"></canvas>
     </div>
   </div>
+</section>
+  
+  
+  
+
 </section>
     
 
